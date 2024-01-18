@@ -1,0 +1,64 @@
+#include<iostream>
+using namespace std;
+
+class que {
+    int size;
+    int* initial;
+    int front;
+    int rear;
+
+public:
+    que(int s) {
+        size = s;
+        initial = new int[size];
+        front = rear = -1;
+    }
+
+    bool emp() {
+        return front == -1;
+    }
+
+    bool ful() {
+        return (rear + 1) % size == front;
+    }
+
+    void enq(int n) {
+        if (ful()) {
+            cout << "Queue is full. Cannot enqueue." << endl;
+        } else {
+            if (emp()) {
+                front = 0;
+            }
+
+            rear = (rear + 1) % size;
+            initial[rear] = n;
+        }
+    }
+
+    void dq() {
+        if (emp()) {
+            cout << "Queue is empty. Cannot dequeue." << endl;
+        } else {
+            int elem = initial[front];
+            if (front == rear) {
+                front = rear = -1;
+            } else {
+                front = (front + 1) % size;
+            }
+
+            cout << "Dequeued element: " << elem << endl;
+        }
+    }
+
+    ~que() {
+        delete[] initial;
+    }
+};
+
+int main() {
+    que myQueue(5);
+
+   
+
+    return 0;
+}
